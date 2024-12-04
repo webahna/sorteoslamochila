@@ -1,0 +1,252 @@
+<div class="row mt-40">
+    <div class="col-md-6 offset-md-3 text-center">
+        <button type="button" class="btn btn-success btn-lg btn-block"
+            (click)="validaPares()">Apartar</button>
+    </div>
+</div>
+
+<div class="row mt-40">
+    <div class="col-md-6 offset-md-3 text-center">
+        <button type="button" class="btn btn-dark btn-lg btn-block"
+            (click)="openModal()">Maquina
+            de la suerte</button>
+    </div>
+</div>
+
+<div class="row mt-40">
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-header">
+                Numeros seleccionados:
+            </div>
+            <div class="card-body">
+                <textarea class="form-control numeros-selected-area" readonly
+                    [(ngModel)]="cardNumerosSeleccionados"
+                    id="cardNumerosSeleccionados"
+                    name="cardNumerosSeleccionados"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-20" [ngStyle]="{'display':displayLoading}">
+    <div class="col-12 text-center">
+        <img src="../../assets/images/loading.gif">
+    </div>
+</div>
+<div class="row mt-40 pb-40" [ngStyle]="{'display':displayNumeros}">
+    <div class="col-12">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab"
+                    data-bs-toggle="tab" data-bs-target="#tab1" type="button"
+                    role="tab" aria-controls="home"
+                    aria-selected="true">1-10,000</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                    data-bs-target="#tab2" type="button" role="tab"
+                    aria-controls="profile"
+                    aria-selected="false">10,001-20,000</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="contact-tab" data-bs-toggle="tab"
+                    data-bs-target="#tab3" type="button" role="tab"
+                    aria-controls="contact"
+                    aria-selected="false">20,001-30,000</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="contact-tab" data-bs-toggle="tab"
+                    data-bs-target="#tab4" type="button" role="tab"
+                    aria-controls="contact"
+                    aria-selected="false">30,001-40,000</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="contact-tab" data-bs-toggle="tab"
+                    data-bs-target="#tab5" type="button" role="tab"
+                    aria-controls="contact"
+                    aria-selected="false">40,001-50,000</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="contact-tab" data-bs-toggle="tab"
+                    data-bs-target="#tab6" type="button" role="tab"
+                    aria-controls="contact"
+                    aria-selected="false">50,001-60,000</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="tab1" role="tabpanel">
+                <div class="button-container">
+                    <div *ngFor="let button of buttons1"
+                        (click)="toggleSelection(button.toString().padStart(5, '0'))"
+                        class="button-number"
+                        [attr.id]="button.toString().padStart(5, '0')">
+                        {{ button.toString().padStart(5, '0') }}
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab2" role="tabpanel">
+                <div class="button-container">
+                    <div *ngFor="let button of buttons2"
+                        (click)="toggleSelection(button.toString().padStart(5, '0'))"
+                        class="button-number"
+                        [attr.id]="button.toString().padStart(5, '0')">
+                        {{ button.toString().padStart(5, '0') }}
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab3" role="tabpanel">
+                <div class="button-container">
+                    <div *ngFor="let button of buttons3"
+                        (click)="toggleSelection(button.toString().padStart(5, '0'))"
+                        class="button-number"
+                        [attr.id]="button.toString().padStart(5, '0')">
+                        {{ button.toString().padStart(5, '0') }}
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab4" role="tabpanel">
+                <div class="button-container">
+                    <div *ngFor="let button of buttons4"
+                        (click)="toggleSelection(button.toString().padStart(5, '0'))"
+                        class="button-number"
+                        [attr.id]="button.toString().padStart(5, '0')">
+                        {{ button.toString().padStart(5, '0') }}
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab5" role="tabpanel">
+                <div class="button-container">
+                    <div *ngFor="let button of buttons5"
+                        (click)="toggleSelection(button.toString().padStart(5, '0'))"
+                        class="button-number"
+                        [attr.id]="button.toString().padStart(5, '0')">
+                        {{ button.toString().padStart(5, '0') }}
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab6" role="tabpanel">
+                <div class="button-container">
+                    <div *ngFor="let button of buttons6"
+                        (click)="toggleSelection(button.toString().padStart(5, '0'))"
+                        class="button-number"
+                        [attr.id]="button.toString().padStart(5, '0')">
+                        {{ button.toString().padStart(5, '0') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header btn-close-modal">
+                <button type="button" class="btn btn-danger close"
+                    aria-label="Close"
+                    (click)="onCloseHandled()"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <span class="font-bold">Boletos a generar:</span>
+                    </div>
+                    <div class="col-md-9">
+                        <select class="form-select"
+                            (change)="selectOption($event)">
+                            <option>Selecciona</option>
+                            <option *ngFor="let num of arrayNumerosSelect"
+                                [ngValue]="num">{{num}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-20">
+                    <div class="col-12">
+                        <img class="img-jackpot"
+                            [ngStyle]="{'display': displayGifImage }"
+                            id="imgJackpot"
+                            src="../../assets/images/axolittles-slot-machine.gif">
+                        <textarea type="text" id="txtNumerosSuerte"
+                            class="form-control numeros-suerte-area"
+                            [ngStyle]="{'display': displaytextSuerte }" readonly
+                            [(ngModel)]="cardNumerosSuerte"
+                            id="cardNumerosSuerte"
+                            name="cardNumerosSuerte"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success"
+                    (click)="btnSelecciona()">Seleccionar</button>
+                <button type="button" class="btn btn-success"
+                    (click)="calculaNumeros()">Generar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog"
+    [ngStyle]="{'display':displayModalPago}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header btn-close-modal">
+                <button type="button" class="btn btn-danger close"
+                    aria-label="Close"
+                    (click)="onCloseModalPago()"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body modal-pago">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h4>LLENA TUS DATOS Y DA CLICK EN APARTAR</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h4 class="text-success">{{this.selectedNumbers.length}}
+                            BOLETOS SELECCIONADOS</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label>Nombre:</label>
+                        <input type="text" class="form-control" maxlength="20"
+                            placeholder="Nombre(s)"
+                            [(ngModel)]="this.nombreUsuario">
+                    </div>
+                    <div class="col-12">
+                        <label>Apellido:</label>
+                        <input type="text" class="form-control" maxlength="20"
+                            placeholder="Apellido(s)"
+                            [(ngModel)]="this.apellidoUsuario">
+                    </div>
+                    <div class="col-12">
+                        <label>Número:</label>
+                        <input type="number" class="form-control"
+                            placeholder="Número a 10 dígitos"
+                            [(ngModel)]="this.numeroUsuario">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+
+                        <h6 class="font-bold">Al apartar tus boletos aceptas
+                            nuestro aviso de privacidad.</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h6 class="text-warning">¡Al finalizar serás redirigido
+                            a whatsapp para enviar la información de tu
+                            boleto!</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer footer-modal-pago">
+                <button type="button" class="btn btn-danger btn-lg"
+                    (click)="sendMessage()">¡Apartar!</button>
+            </div>
+        </div>
+    </div>
+</div>

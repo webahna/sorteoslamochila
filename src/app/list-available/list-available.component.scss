@@ -1,0 +1,128 @@
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-height: 500px !important;
+    overflow: auto;
+}
+
+.button-number {
+    width: 40px;
+    font-size: 12px;
+    padding: 0px;
+    height: 25px;
+    border: 1px solid #000000;
+    text-align: center;
+    cursor: pointer;
+}
+
+.div-title {
+    text-align: center;
+    background-color: #01fa3f;
+}
+
+.text-title {
+    color: #fa083a;
+    font-size: calc(2em + 3vw) !important;
+    font-weight: bolder;
+    letter-spacing: 0.25em;
+    word-spacing: 0.25em;
+}
+
+.text-separated {
+    letter-spacing: 0.2em;
+    word-spacing: 0.2em;
+}
+
+.font-bold {
+    font-weight: bolder !important;
+}
+
+.mt-40 {
+    margin-top: 40px;
+}
+
+.mt-30 {
+    margin-top: 30px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-30 {
+    margin-bottom: 30px;
+}
+
+.pb-40 {
+    padding-bottom: 40px;
+}
+
+.iconos {
+    font-size: calc(2em + 3vw);
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.btn-close-modal {
+    justify-content: flex-end;
+}
+
+.modal-body {
+    height: 500px;
+}
+
+.numeros-suerte-area {
+    height: 400px;
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.numeros-selected-area {
+    min-height: 100px;
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.img-jackpot {
+    width: 360px;
+}
+
+@media only screen and (min-width: 600px) {
+    .img-jackpot {
+        margin-left: 35px;
+        width: 400px;
+    }
+}
+
+.row {
+    max-width: 100%;
+}
+
+.modal-pago {
+    height: 360px;
+}
+
+.footer-modal-pago {
+    align-self: center;
+}
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+    color: green;
+    background-color: lightgreen;
+    border-color: green;
+}
+
+.btn-disabled {
+    pointer-events: none;
+}
+
+.nav-tabs .nav-link {
+    background-color: lightgreen;
+    color: white;
+    border-color: green;
+    margin-bottom: calc(-1* var(--bs-nav-tabs-border-width));
+    border: var(--bs-nav-tabs-border-width) solid transparent;
+    border-top-left-radius: var(--bs-nav-tabs-border-radius);
+    border-top-right-radius: var(--bs-nav-tabs-border-radius);
+}

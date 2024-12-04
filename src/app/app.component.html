@@ -1,0 +1,104 @@
+<link rel="icon" type="image/x-icon" href="../assets/images/logo.png" />
+
+<header class="p-3 bg-dark text-white">
+    <div class="container container-header">
+        <div class="row">
+            <div class="col-md-5">
+                <img src="../assets/images/logo.png" alt="..."
+                    class="img-logo-header">
+            </div>
+            <div class="col-md-7">
+                <div class="text-end">
+                    <ul
+                        class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        <li class="list-header-text cursor-pointer"><a
+                                routerLink="/index"
+                                class="nav-link px-2 text-white">Inicio</a></li>
+                        <li class="list-header-text cursor-pointer"><a
+                                routerLink="/preguntas"
+                                class="nav-link px-2 text-white">Preguntas
+                                Frecuentes</a></li>
+                        <li class="list-header-text cursor-pointer"><a
+                                routerLink="/contacto"
+                                class="nav-link px-2 text-white">Contacto</a></li>
+                        <li class="list-header-text cursor-pointer"><a
+                                routerLink="/medios-pago"
+                                class="nav-link px-2 text-white">Medios de
+                                Pago</a></li>
+                        <li><a routerLink="/comprar"
+                                class="nav-link px-2 text-white cursor-pointer">Comprar
+                                Boletos</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div *ngIf="loadingService.isLoading | async" class="loading-overlay">
+    <div class="loading-spinner">Cargando...</div>
+</div>
+
+<div id="body">
+    <router-outlet></router-outlet>
+    <a
+        href="https://wa.me/526681379618?text=Quiero%20información%20sobre%20sorteo…"
+        class="whatsapp" target="_blank"> <i
+            class="bi bi-whatsapp ico-whats-flotante"></i></a>
+</div>
+
+<div id="footer">
+    <div class="container">
+        <footer
+            class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-md-8 d-flex align-items-center">
+                <a href="/"
+                    class="mb-3 me-2 mb-md-0 text-decoration-none lh-1">
+                    <svg class="bi" width="30" height="24"><use
+                            xlink:href="#bootstrap"></use></svg>
+                </a>
+                <span class="mb-3 mb-md-0 text-white">© 2024 Sorteos La Mochila,
+                    powered by LMDigitalsys.</span>
+                <a
+                    routerLink="/aviso-privacidad"
+                    class="nav-link px-2 text-white text-aviso">Aviso de Privacidad y Terminos y condiciones</a>
+            </div>
+
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3"><a class="text-white"
+                        href="https://wa.me/526681379618?text=Quiero%20información%20sobre%20sorteo…"
+                        target="_blank"><i class="bi bi-whatsapp"></i></a></li>
+                <li class="ms-3"><a class="text-white"
+                        href="https://www.tiktok.com/@sorteos.la.mochil?_t=8r6AGV30z38&_r=1"
+                        target="_blank"><i class="bi bi-tiktok"></i></a></li>
+                <li class="ms-3"><a class="text-white"
+                        href="https://www.instagram.com/sorteoslamochilaoficial/profilecard/?igsh=MW04emIzbHQ0bGljYw=="
+                        target="_blank"><i class="bi bi-instagram"></i></a></li>
+                <li class="ms-3"><a class="text-white"
+                        href="https://www.facebook.com/share/28mxQ6omPtoQ5t4M/"
+                        target="_blank"><i class="bi bi-facebook"></i></a></li>
+                <li class="ms-3"><a class="text-white"
+                        href="https://youtube.com/@sorteoslamochila?si=3fw1EtZ2ZwnPp_Ud"
+                        target="_blank"><i class="bi bi-youtube"></i></a></li>
+            </ul>
+        </footer>
+    </div>
+</div>
+
+<!-- Meta Pixel Code -->
+<script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '578783304837074');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=578783304837074&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
