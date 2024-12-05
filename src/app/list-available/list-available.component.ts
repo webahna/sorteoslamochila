@@ -244,7 +244,7 @@ export class ListAvailableComponent implements OnInit {
     this.setApartados();
 
     if ((window as any).fbq) {
-      (window as any).fbq('trackCustom', 'Completar registro', {
+      (window as any).fbq('track', 'CompleteRegistration', {
         nombre: this.nombreUsuario,
         apellido: this.apellidoUsuario,
         tel: this.numeroUsuario,
