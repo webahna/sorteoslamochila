@@ -85,9 +85,9 @@ export class ListAvailableComponent implements OnInit {
 
   setApartados() {
     //codigo para descargar archivos
-    const text = this.selectedNumbers.join(',');
-    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
-    saveAs(blob, this.fileApartados);
+    // const text = this.selectedNumbers.join(',');
+    // const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    // saveAs(blob, this.fileApartados);
   }
 
   setVendidos() {
