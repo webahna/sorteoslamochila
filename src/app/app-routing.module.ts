@@ -10,18 +10,18 @@ import { ComprarComponent } from './comprar/comprar.component';
 import { AvisoPrivacidadComponent } from './aviso-privacidad/aviso-privacidad.component';
 
 const routes: Routes = [
-  { path: 'list-available', component: ListAvailableComponent },
   { path: 'index', component: IndexComponent },
+  { path: 'list-available', component: ListAvailableComponent },
   { path: 'app', component: AppComponent },
   { path: 'preguntas', component: PreguntasFrecuentesComponent },
   { path: 'contacto', component: ContactComponent },
   { path: 'medios-pago', component: MediosPagoComponent },
   { path: 'comprar', component: ComprarComponent },
-  { path: 'aviso-privacidad', component: AvisoPrivacidadComponent }
+  { path: 'aviso-privacidad', component: AvisoPrivacidadComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {useHash: true})],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, { useHash: false })],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

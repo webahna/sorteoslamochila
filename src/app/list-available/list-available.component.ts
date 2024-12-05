@@ -6,15 +6,16 @@ import { saveAs } from 'file-saver';
 @Component({
   selector: 'app-list-available',
   templateUrl: './list-available.component.html',
-  styleUrls: ['./list-available.component.scss']
+  styleUrls: ['./list-available.component.scss'],
 })
 export class ListAvailableComponent implements OnInit {
-  display = "none";
+  display = 'none';
   displayNumeros = 'none';
 
-  constructor(private loadingService: LoadingService, private toastr: ToastrService) {
-
-  }
+  constructor(
+    private loadingService: LoadingService,
+    private toastr: ToastrService
+  ) {}
 
   allButtons: number[] = Array.from({ length: 60000 }, (_, i) => i + 1);
   buttons1 = this.allButtons.slice(0, 10000);
@@ -38,49 +39,87 @@ export class ListAvailableComponent implements OnInit {
   nombreUsuario: string = '';
   apellidoUsuario: string = '';
   numeroUsuario: string = '';
-  fileApartados: string = "assets/vendidos/vendidos.txt";
+  fileApartados: string = 'assets/vendidos/vendidos.txt';
 
   ngOnInit(): void {
     this.numerosDisponibles = this.allButtons.map(String);
 
     this.getVendidos();
-
   }
 
-  getVendidos() {
-    fetch(this.fileApartados)
-      .then((res) => res.text())
-      .then((text) => {
-        if (text.length > 0) {
-          this.numerosVendidos = text.split(',');
-          setTimeout(() => {
-            this.setVendidos();
-            this.displayLoading = 'none';
-            this.displayNumeros = '';
-          }, 4000);
-        }
-      })
-      .catch((e) => console.error(e));
+  async getVendidos() {
+    try {
+      const response = await fetch(this.fileApartados);
+
+      const text = await response.text();
+
+      if (text.length > 0) {
+        this.numerosVendidos = text.split(',');
+        this.setVendidos();
+      } else {
+        this.numerosVendidos = [];
+      }
+
+      this.displayLoading = 'none';
+      this.displayNumeros = '';
+    } catch (error) {
+      console.log(error);
+    }
   }
+  // >>> ANTERIOR <<<
+  // getVendidos() {
+  //   fetch(this.fileApartados)
+  //     .then((res) => res.text())
+  //     .then((text) => {
+  //       if (text.length > 0) {
+  //         this.numerosVendidos = text.split(',');
+  //         setTimeout(() => {
+  //           this.setVendidos();
+  //           this.displayLoading = 'none';
+  //           this.displayNumeros = '';
+  //         }, 4000);
+  //       }
+  //     })
+  //     .catch((e) => console.error(e));
+  // }
 
   setApartados() {
-
-
     //codigo para descargar archivos
-    // const text = this.selectedNumbers.join(',');
-    // const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
-    // saveAs(blob, this.fileApartados);
+    const text = this.selectedNumbers.join(',');
+    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    saveAs(blob, this.fileApartados);
   }
 
   setVendidos() {
     if (this.numerosVendidos.length > 0) {
       for (let i = 0; i < this.numerosVendidos.length; i++) {
-        (<HTMLInputElement>document.getElementById(this.numerosVendidos[i])).disabled = true;
-        (<HTMLInputElement>document.getElementById(this.numerosVendidos[i])).style.backgroundColor = 'gray';
-        (<HTMLInputElement>document.getElementById(this.numerosVendidos[i])).style.pointerEvents = 'none';
+        const elemento = <HTMLInputElement>(
+          document.getElementById(this.numerosVendidos[i])
+        );
+
+        if (!elemento) return;
+
+        elemento.disabled = true;
+        elemento.style.backgroundColor = 'gray';
+        elemento.style.pointerEvents = 'none';
       }
     }
   }
+  // setVendidos() {
+  //   if (this.numerosVendidos.length > 0) {
+  //     for (let i = 0; i < this.numerosVendidos.length; i++) {
+  //       (<HTMLInputElement>(
+  //         document.getElementById(this.numerosVendidos[i])
+  //       )).disabled = true;
+  //       (<HTMLInputElement>(
+  //         document.getElementById(this.numerosVendidos[i])
+  //       )).style.backgroundColor = 'gray';
+  //       (<HTMLInputElement>(
+  //         document.getElementById(this.numerosVendidos[i])
+  //       )).style.pointerEvents = 'none';
+  //     }
+  //   }
+  // }
 
   toggleSelection(buttonNumber: string) {
     const index = this.selectedNumbers.indexOf(buttonNumber);
@@ -89,44 +128,53 @@ export class ListAvailableComponent implements OnInit {
       // Si el número no está en el arreglo, lo agregamos
       this.selectedNumbers.push(buttonNumber);
       (<HTMLInputElement>document.getElementById(buttonNumber)).disabled = true;
-      (<HTMLInputElement>document.getElementById(buttonNumber)).style.backgroundColor = 'green';
+      (<HTMLInputElement>(
+        document.getElementById(buttonNumber)
+      )).style.backgroundColor = 'green';
     } else {
       // Si ya está en el arreglo, lo quitamos
       this.selectedNumbers.splice(index, 1);
-      (<HTMLInputElement>document.getElementById(buttonNumber)).disabled = false;
-      (<HTMLInputElement>document.getElementById(buttonNumber)).style.backgroundColor = '';
+      (<HTMLInputElement>document.getElementById(buttonNumber)).disabled =
+        false;
+      (<HTMLInputElement>(
+        document.getElementById(buttonNumber)
+      )).style.backgroundColor = '';
     }
     this.cardNumerosSeleccionados = this.selectedNumbers.join(', ');
   }
 
   validaPares() {
     if (this.selectedNumbers.length == 0) {
-      this.toastr.error('Debes seleccionar al menos 2 boletos', 'Por favor verifica');
-    }
-    else if (this.selectedNumbers.length % 2 !== 0) {
-      this.toastr.warning('El número de boletos debe ser multiplo de 2 (numero par)', 'Por favor verifica');
-    }
-    else {
+      this.toastr.error(
+        'Debes seleccionar al menos 2 boletos',
+        'Por favor verifica'
+      );
+    } else if (this.selectedNumbers.length % 2 !== 0) {
+      this.toastr.warning(
+        'El número de boletos debe ser multiplo de 2 (numero par)',
+        'Por favor verifica'
+      );
+    } else {
       this.openModalPago();
     }
   }
 
   openModal() {
-    this.display = "block";
+    this.display = 'block';
   }
 
   onCloseHandled() {
-    this.display = "none";
+    this.display = 'none';
     this.selectedNumbers = [];
     this.cardNumerosSuerte = '';
   }
 
   onCloseModalPago() {
-    this.displayModalPago = "none";
+    this.displayModalPago = 'none';
   }
 
   openModalPago() {
-    this.displayModalPago = "block";
+    this.displayModalPago = 'block';
   }
 
   selectOption(value: any) {
@@ -141,7 +189,10 @@ export class ListAvailableComponent implements OnInit {
       this.displayGifImage = 'none';
     }, 3000);
 
-    const randomNumbers = this.getRandomNumbers(this.numerosDisponibles, this.opcionSeleccionada);
+    const randomNumbers = this.getRandomNumbers(
+      this.numerosDisponibles,
+      this.opcionSeleccionada
+    );
     this.selectedNumbers = randomNumbers;
     this.cardNumerosSuerte = randomNumbers.join(', ');
   }
@@ -149,7 +200,10 @@ export class ListAvailableComponent implements OnInit {
   getRandomNumbers(array: string[], n: number): string[] {
     // Validar que n no sea mayor que la longitud del array
     if (n > array.length) {
-      this.toastr.error('Selecciona una catindad menor', 'No hay boletos disponibles');
+      this.toastr.error(
+        'Selecciona una catindad menor',
+        'No hay boletos disponibles'
+      );
       return [];
     }
 
@@ -170,30 +224,51 @@ export class ListAvailableComponent implements OnInit {
   }
 
   btnSelecciona() {
-    this.display = "none";
+    this.display = 'none';
     this.cardNumerosSeleccionados = this.selectedNumbers.join(', ');
   }
 
   sendMessage() {
+    if (this.nombreUsuario.length === 0) {
+      this.toastr.error('Debes indicarnos tu nombre(s).');
+      return;
+    }
+    if (this.apellidoUsuario.length === 0) {
+      this.toastr.error('Debes indicarnos tu apellido(s).');
+      return;
+    }
+    if (String(this.numeroUsuario).length !== 10) {
+      this.toastr.error('El número debe ser de 10 dígitos.');
+      return;
+    }
+    this.setApartados();
 
-    // if (this.nombreUsuario.length === 0) {
-    //   this.toastr.error('Debes indicarnos tu nombre(s).')
-    //   return;
-    // }
+    if ((window as any).fbq) {
+      (window as any).fbq('trackCustom', 'boletosApartados', {
+        nombre: this.nombreUsuario,
+        apellido: this.apellidoUsuario,
+        tel: this.numeroUsuario,
+        numeros: this.selectedNumbers,
+      });
+    }
 
-    // if (this.apellidoUsuario.length === 0) {
-    //   this.toastr.error('Debes indicarnos tu apellido(s).')
-    //   return;
-    // }
-
-    // if (String(this.numeroUsuario).length !== 10) {
-    //   this.toastr.error('El número debe ser de 10 dígitos.')
-    //   return;
-    // }
-
-    this.setApartados()
-    // const textoMensajeApartado = 'Hola, Quiero boletos de la rifa!! ' + this.nombreSorteo + '!!! *' + this.selectedNumbers.length + ' BOLETOS:* ' + this.selectedNumbers.join(',') + ' *Nombre:* ' + this.nombreUsuario + ' ' + this.apellidoUsuario + ' *SI VAS A REALIZAR TRANSFERENCIA FAVOR DE PONER TU NOMBRE EN CONCEPTO DE PAGO*, ENVÍA TU COMPROBANTE DE PAGO POR AQUÍ SI NO, NO SERÁ VALIDO* 2 boletos por $10, 4 boletos por $20, 6 boletos por $30, 8 boleto por $ 40, 10 boletos por $50, 12 boletos por $60, 14 boletos por $70, 16 boletos por $80, 18 boletos por $90, 20 boletos por $100 ———————————— *CUENTAS DE PAGO AQUÍ:* https://sorteoslamochila.com *Celular:* ' + this.numeroUsuario + ' El siguiente paso es enviar foto del comprobante de pago por este medio';
-    // const win = window.open(`https://wa.me/526681379618?text=${textoMensajeApartado}`, '_blank');
+    const textoMensajeApartado =
+      'Hola, Quiero boletos de la rifa!! ' +
+      this.nombreSorteo +
+      '!!! *' +
+      this.selectedNumbers.length +
+      ' BOLETOS:* ' +
+      this.selectedNumbers.join(',') +
+      ' *Nombre:* ' +
+      this.nombreUsuario +
+      ' ' +
+      this.apellidoUsuario +
+      ' *SI VAS A REALIZAR TRANSFERENCIA FAVOR DE PONER TU NOMBRE EN CONCEPTO DE PAGO*, ENVÍA TU COMPROBANTE DE PAGO POR AQUÍ SI NO, NO SERÁ VALIDO* 2 boletos por $10, 4 boletos por $20, 6 boletos por $30, 8 boleto por $ 40, 10 boletos por $50, 12 boletos por $60, 14 boletos por $70, 16 boletos por $80, 18 boletos por $90, 20 boletos por $100 ———————————— *CUENTAS DE PAGO AQUÍ:* https://sorteoslamochila.com *Celular:* ' +
+      this.numeroUsuario +
+      ' El siguiente paso es enviar foto del comprobante de pago por este medio';
+    const win = window.open(
+      `https://wa.me/526681379618?text=${textoMensajeApartado}`,
+      '_blank'
+    );
   }
-
 }

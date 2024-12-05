@@ -1,43 +1,44 @@
-.div-title{
-    text-align: center;
-    background-color: #01fa3f;
+.div-title {
+  text-align: center;
+  background-color: #666666;
+  padding: 16px 0;
 }
 
-.text-title{
-    color: #fa083a;
-    font-size: calc(2em + 3vw) !important;
-    font-weight: bolder;
-    letter-spacing: 0.25em;
-    word-spacing: 0.25em;
-}
-
-.text-separated {
-    letter-spacing: 0.2em;
-    word-spacing: 0.2em;
+.text-title {
+  color: #fff;
+  font-size: 40px !important;
+  font-weight: bolder;
 }
 
 .font-bold {
-    font-weight: bolder !important;
+  font-weight: bolder !important;
 }
 
 .mt-40 {
-    margin-top: 40px;
+  margin-top: 40px;
 }
 
 .mt-30 {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
 .mt-20 {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
-.iconos { 
-    font-size: calc(2em + 3vw);
-    margin-left: 10px;
-    margin-right: 10px;
+.iconos {
+  font-size: calc(2em + 3vw);
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .row {
-    max-width: 100%;
+  max-width: 100%;
+}
+.text-gray {
+  color: #666666;
+}
+
+h4 {
+  font-size: 20px;
 }
